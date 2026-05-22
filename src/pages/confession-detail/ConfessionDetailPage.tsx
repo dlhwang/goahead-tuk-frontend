@@ -14,7 +14,7 @@ export function ConfessionDetailPage() {
       <div className="flex items-center justify-between px-5 py-4">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() =>navigate('/confessions')}
           aria-label="뒤로 가기"
           className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.07] text-mist/72"
         >
