@@ -7,7 +7,7 @@ export function AppLayout() {
       <div className="mx-auto flex min-h-[calc(100vh-40px)] w-full max-w-md flex-col overflow-hidden rounded-[28px] border border-white/10 bg-midnight/86 shadow-glow backdrop-blur-xl">
         <header className="relative border-b border-white/10 px-5 pb-5 pt-6">
           <div className="absolute inset-0 opacity-[0.24]">
-            <img src={brandImage} alt="" className="h-full w-full object-cover" />
+
           </div>
           <div className="relative flex items-center justify-between">
             <div>
