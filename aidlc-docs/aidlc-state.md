@@ -29,14 +29,27 @@
 
 ## 확장 설정
 
-- **Security Baseline**: Requirements Analysis opt-in 대기
-- **Property-Based Testing**: Requirements Analysis opt-in 대기
+- **Security Baseline**: Requirements Analysis에서 적용 선택
+- **Property-Based Testing**: Requirements Analysis에서 미적용 선택
+
+## Extension Configuration
+
+| Extension | Enabled | Decided At |
+| --- | --- | --- |
+| Security Baseline | Yes | Requirements Analysis |
+| Property-Based Testing | No | Requirements Analysis |
 
 ## 단계 진행 현황
 
 - [x] Workspace Detection - 2026-05-22T06:53:54.5321986Z 완료
 - [x] Reverse Engineering - 2026-05-22T06:53:54.5321986Z 완료
-- [ ] Requirements Analysis - 역공학 분석 승인 대기
+- [x] Requirements Analysis - 2026-05-22T07:28:34.1650221Z 완료
+
+## Current Work
+
+- **Current Stage**: CONSTRUCTION - Build and Test
+- **Current Status**: 빌드 및 테스트 산출물 검토 대기
+- **Next Stage**: Operations
 
 ## 역공학 상태
 

@@ -3,9 +3,8 @@ import { getDeviceId } from '@/shared/storage/deviceId';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 if (!API_BASE_URL) {
-  throw new Error('VITE_API_BASE_URL is not defined');
+  throw new Error('VITE_API_BASE_URL is required to call the backend API.');
 }
-
 
 type RequestOptions = Omit<RequestInit, 'body'> & {
   body?: unknown;
