@@ -17,11 +17,14 @@ VITE_API_BASE_URL=http://localhost:8080
 
 ## API
 
-모든 요청은 `X-Device-Id` 헤더를 포함합니다. 디바이스 ID는 `localStorage`에 저장되며 없으면 `crypto.randomUUID()`로 생성됩니다.
+모든 요청은 `X-Device-Id` 헤더를 포함합니다. 디바이스 ID는 `localStorage`에
+저장되며 없으면 `crypto.randomUUID()`로 생성됩니다.
 
-- `GET /confessions`
-- `GET /confessions/:confessionId`
-- `POST /confessions`
+- `GET /api/confessions`
+- `GET /api/confessions/:confessionId`
+- `POST /api/confessions`
+- `PUT /api/confessions/:confessionId/reactions/:type`
+- `DELETE /api/confessions/:confessionId/reactions/:type`
 
 ## 구조
 
