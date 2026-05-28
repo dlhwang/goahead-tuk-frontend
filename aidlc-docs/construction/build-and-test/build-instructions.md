@@ -1,49 +1,51 @@
-# 빌드 지침
+# Build Instructions
 
-## 사전 조건
+## Prerequisites
 
-- **Build Tool**: npm과 Vite.
-- **Dependencies**: `npm install`로 설치한 package dependencies.
-- **Environment Variables**: `VITE_API_BASE_URL`.
-- **System Requirements**: Node.js를 실행할 수 있는 로컬 환경.
+- **Build Tool**: npm `10.9.3`, Vite `6.4.2`, TypeScript `5.7.3`
+- **Runtime**: Node.js `v22.18.0`
+- **Dependencies**: `package-lock.json`으로 잠긴 React/Vite application 및
+  Vitest/Testing Library test harness dependencies
+- **Environment Variables**: `VITE_API_BASE_URL` 필수. 현재 local
+  environment는 HTTPS production backend origin을 사용한다.
+- **System Requirements**: Windows PowerShell 환경과 Node/npm 실행 가능
 
-## 빌드 단계
+## Build Steps
 
-### 1. 의존성 설치
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. 환경변수 설정
-
-로컬 개발 예시는 `.env.local`에 둔다.
+### 2. Configure Environment
 
 ```bash
-VITE_API_BASE_URL=http://localhost:8080/tuk
+# .env.local 또는 실행 환경에 VITE_API_BASE_URL을 설정한다.
 ```
 
-### 3. 프론트엔드 빌드
+### 3. Build All Units
 
 ```bash
 npm run build
 ```
 
-### 4. 성공 확인
+### 4. Verify Build Success
 
-- **Expected Output**: TypeScript build와 Vite production build가 성공한다.
-- **Build Artifacts**: `dist/`.
-- **Common Warnings**: 현재 검증에서는 별도 경고를 확인하지 않았다.
+- **Expected Output**: TypeScript build 성공 후 Vite production bundle 생성
+- **Build Artifacts**: `dist/index.html`, `dist/assets/`
+- **Observed Result (2026-05-27)**: 성공, 1644 modules transformed
 
-## 문제 해결
+## Troubleshooting
 
-### API base URL 누락
+### Build Fails With Dependency Errors
 
-- **Cause**: `VITE_API_BASE_URL`이 build 또는 dev 환경에 없다.
-- **Solution**: Vercel 또는 `.env.local`에 값을 등록하고 다시 실행한다.
+- `npm install` 또는 lock file과 설치 상태의 불일치를 확인한다.
+- registry 접근 또는 local npm cache 권한 오류가 있으면 승인된
+  환경에서 dependency install을 재실행한다.
 
-### TypeScript 빌드 실패
+### Build Fails With Compilation Errors
 
-- **Cause**: API wrapper 또는 타입 변경이 기존 feature 경계와 맞지 않는다.
-- **Solution**: `src/shared/api`와 `src/features/confession/api` 변경을 확인하고
-  `npm run build`를 다시 실행한다.
+- response 계약의 `selectedByMe` 필수 속성과 test source type error를
+  우선 확인한다.
+- 수정 후 `npm test`, `npm run lint`, `npm run build`를 다시 실행한다.

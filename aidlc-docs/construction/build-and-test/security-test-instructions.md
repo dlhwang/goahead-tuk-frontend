@@ -1,15 +1,49 @@
-# 보안 검증 지침
+# Security Test Instructions
 
-## 적용 기준
+## Frontend Security Checks
 
-Security Baseline 확장 규칙을 적용한 변경이다. 이번 프론트 저장소 범위에서는
-환경변수와 cross-origin 운영 메모를 점검한다.
+<!-- markdownlint-disable MD013 -->
 
-## 확인 항목
+| Check | Command Or Method | Result |
+| ----- | ----------------- | ------ |
+| Dependency vulnerability audit | `npm audit --audit-level=high` | Pass: `found 0 vulnerabilities` |
+| HTML security header configuration | Review `vercel.json` | Configured: CSP, HSTS, nosniff, frame deny, referrer policy |
+| CSP API allowlist | Review `connect-src` | Configured for `'self'` and the confirmed HTTPS backend origin only |
+| Safe mutation error UI | Component test | Pass: generic Korean `role="alert"` message |
+| Browser storage selection authority | Code/reference check | Pass: legacy reaction selection storage reference removed |
 
-1. `.env.example`에 secret이나 운영 token이 포함되지 않았는지 확인한다.
-2. README의 운영 예시가 `VITE_API_BASE_URL`만 노출하는지 확인한다.
-3. Railway backend가 Vercel 배포 도메인을 명시적 CORS allowed origin으로
-   허용하는지 backend 설정에서 확인한다.
-4. authenticated endpoint가 생기면 wildcard CORS를 사용하지 않는지 별도로
-   확인한다.
+<!-- markdownlint-enable MD013 -->
+
+## External Verification Required
+
+Security Baseline Full 완료를 위해 다음 증빙이 필요하다. 이 항목들은
+frontend local build로 확인할 수 없다.
+
+- Backend의 `X-Device-Id`, confession id 및 reaction type 입력 검증
+- Public mutation endpoint의 rate limit 또는 동등 abuse protection
+- Production CORS allowlist
+- Device id log masking과 mutation audit/observability
+- Production TLS 및 실제 deployed HTML response security header
+
+## Blocking Status
+
+Frontend-owned security checks는 통과했다. 그러나 external verification
+증빙이 제공되지 않아 이 기능을 Security Full 기준의 최종 완료 상태로
+선언할 수 없다.
+
+## MVP Demo Risk Acceptance Boundary
+
+사용자는 Security Full completion을 보류하면서, 다음 최소 gate가 모두
+검증될 경우에만 MVP demo를 Risk Accepted 상태로 진행할 수 있다고
+결정했다.
+
+1. 정상적인 `X-Device-Id` 입력에서 backend validation error가 없어야 한다.
+2. Device id 원문이 backend 또는 운영 로그에 남지 않아야 한다.
+3. Production CORS는 실제 Vercel origin만 허용해야 한다.
+4. 실제 Railway backend 기준 reaction GET/PUT/DELETE smoke test가
+   통과해야 한다.
+
+위 증빙은 아직 제공되지 않았으므로 demo 배포 승인은 대기 상태다.
+Rate limiting 고도화, TLS/deployed security header 증빙, mutation
+관측 정책은 MVP 조건 충족 후에도 Security Full completion 이전에
+해결해야 할 follow-up gate로 남는다.

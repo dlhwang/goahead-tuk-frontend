@@ -11,7 +11,7 @@
 ## 공통 패키지
 
 - `src/shared/api` - fetch wrapper와 API error type.
-- `src/shared/storage` - 브라우저 device identity 유지.
+- `src/shared/storage` - 브라우저 device identity 및 반응 선택 기록 유지.
 - `src/shared/ui` - 공통 애플리케이션 layout과 empty state component.
 
 ## 테스트 패키지

@@ -1,13 +1,17 @@
-# 성능 검증 지침
+# Performance Test Instructions
 
-## 적용성
+## Applicability
 
-이번 변경은 API base URL 설정과 API path wrapper 정리이므로 별도 성능 목표나 load
-test script를 추가하지 않는다.
+이 unit의 승인된 NFR은 별도 latency, throughput 또는 concurrency SLA를
+정의하지 않았다. 따라서 load/stress test suite는 이번 범위에 적용하지
+않는다.
 
-## 최소 확인
+## Implemented Performance Decision
 
-1. production build asset이 정상 생성되는지 확인한다.
-2. 실제 backend 연동 smoke test에서 목록 조회와 작성 요청이 정상 완료되는지
-   확인한다.
-3. API 응답 지연이 확인되면 backend 관측 지표와 Railway 로그를 함께 확인한다.
+- Optimistic cache patch 대신 서버 refetch 일관성을 우선한다.
+- mutation pending 동안 중복 UI 요청을 차단한다.
+
+## Future Trigger
+
+공개 reaction endpoint에 latency 또는 abuse 관련 수치 목표가 수립되면,
+backend/edge rate limit 검증과 함께 별도의 performance test를 설계한다.

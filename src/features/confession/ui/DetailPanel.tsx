@@ -1,5 +1,6 @@
 import { HeartHandshake } from 'lucide-react';
 import { confessionMoodLabels, type ConfessionDetail } from '@/features/confession/model/types';
+import { ReactionButtons } from '@/features/confession/ui/ReactionButtons';
 
 type DetailPanelProps = {
   confession: ConfessionDetail;
@@ -16,6 +17,9 @@ export function DetailPanel({ confession }: DetailPanelProps) {
           <time className="text-xs text-mist/45">{formatFullDate(confession.createdAt)}</time>
         </div>
         <p className="whitespace-pre-wrap text-lg leading-8 text-mist">{confession.content}</p>
+        <div className="mt-6 border-t border-white/10 pt-4">
+          <ReactionButtons confessionId={confession.id} reactions={confession.reactions} />
+        </div>
       </div>
 
       <section className="mt-5 rounded-3xl border border-amber/20 bg-amber/12 p-5">
