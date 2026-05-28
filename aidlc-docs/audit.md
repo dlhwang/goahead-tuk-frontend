@@ -11,6 +11,33 @@
 
 ---
 
+## Fast Track README Methodology Note
+
+**Timestamp**: 2026-05-28T13:10:04.9531548+09:00
+**User Input**: "readme 에다가 말이야 그래도 하네스엔지니어링 과 sdd를
+하고 있다고 적야지. 하고 있잖아"
+**Follow-up User Input**: "그리고 specification driven development 이거 아니냐?"
+**Execution Mode**: Fast Track
+**AI-DLC Assessment**: README 단일 문구 보강 작업으로 새 화면, routing,
+API 계약, state, build, deploy 영향이 없다. Requirements Analysis,
+Workflow Planning, Code Generation, 최소 Build and Test만 실행하고
+User Stories, Application Design, Units Generation, NFR, Infrastructure,
+Operations는 생략한다.
+**Files Updated**:
+
+- `README.md`
+- `aidlc-docs/construction/plans/readme-methodology-note-code-generation-plan.md`
+- `aidlc-docs/construction/readme-methodology-note/code/code-summary.md`
+
+**Validation**:
+
+- `npx.cmd markdownlint-cli2 README.md` - pass, 0 errors
+
+**Result**: README에 하네스엔지니어링(Harness Engineering)과
+SDD(Specification-Driven Development)를 함께 수행하고 있음을 명시했다.
+
+---
+
 ## Code Generation - Approval
 
 **Timestamp**: 2026-05-22T07:54:47.1298725Z

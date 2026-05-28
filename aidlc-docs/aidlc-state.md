@@ -135,3 +135,25 @@
   증빙은 completion 이전 follow-up gate로 유지
 - **정정 사유**: `Units Generation`은 `Application Design` 산출물을
   필수 선행 조건으로 요구하므로 기존 생략 결정을 정정한다.
+
+## Fast Track Side Tasks
+
+### README 방법론 표기
+
+- **요청 일시**: 2026-05-28T13:10:04.9531548+09:00
+- **선택 모드**: Fast Track
+- **요구사항 요약**: README에 하네스엔지니어링과
+  SDD(Specification-Driven Development)를 함께 수행 중임을 명시
+- **작업 유형**: 문서
+- **변경 파일**: `README.md`
+- **계획 파일**:
+  `aidlc-docs/construction/plans/readme-methodology-note-code-generation-plan.md`
+- **Code Summary**:
+  `aidlc-docs/construction/readme-methodology-note/code/code-summary.md`
+- **실행 단계**: Workspace 확인, Requirements Analysis minimal,
+  Workflow Planning minimal, Code Generation, Build and Test minimal
+- **생략 단계**: User Stories, Application Design, Units Generation,
+  Functional Design, NFR Requirements, NFR Design, Infrastructure Design,
+  Operations
+- **검증**: `npx.cmd markdownlint-cli2 README.md` 통과
+- **상태**: 완료

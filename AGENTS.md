@@ -369,6 +369,43 @@ cd scripts/aidlc-evaluator && uv run pytest
   a do-not-merge label check
 - Use the structure from `.github/pull_request_template.md`
 
+## Natural language gitflow alias
+
+When the user says `gitflow ㄱㄱ`, treat it as a fixed release-preparation
+routine for the current working tree. Execute the routine carefully and do not
+stage unrelated user changes.
+
+Default routine:
+
+1. Check the current branch.
+2. Identify whether `develop` or `main` should be the base branch. Prefer
+   `develop` when both are available unless the user specifies otherwise.
+3. Create a `feature/<slug>` branch from the selected base. If the user did not
+   provide a slug, derive a short kebab-case slug from the current request or
+   ask only when the intended feature cannot be inferred safely.
+4. Classify the current changes by purpose and file group.
+5. Stage only files related to the current request. Leave unrelated modified or
+   untracked files untouched.
+6. Run relevant verification before committing:
+   - Markdown-only changes: run `npx markdownlint-cli2` on the changed Markdown
+     files.
+   - Frontend code changes: run available project scripts such as
+     `npm run lint`, `npm run build`, and `npm test`.
+   - Always review the staged diff with `git diff --cached`.
+7. Create a conventional commit. Infer the type from the staged changes
+   (`feat`, `fix`, `docs`, `chore`, `test`, or `refactor`) and keep the subject
+   concise.
+8. Write the PR message using `.github/pull_request_template.md` when it exists.
+   If it does not exist, create a PR message that follows the repository PR
+   instructions and includes the required contributor statement.
+9. Ask before pushing or creating the PR unless the user explicitly requested
+   push and `gh pr create`. If approved, push the feature branch and create the
+   PR with `gh pr create`.
+
+Completion report must include the base branch, feature branch, staged files,
+commit hash, validation commands and results, PR message location or body, and
+whether push/PR creation was performed or skipped.
+
 ## Security scanners
 
 Six scanners run on every push to `main`, every PR, and daily. All HIGH and CRITICAL

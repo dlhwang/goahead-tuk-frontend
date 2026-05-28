@@ -1,6 +1,8 @@
 # Go ahead, Tuk Frontend
 
-React, Vite, TypeScript 기반의 모바일 우선 고해 MVP입니다.
+React, Vite, TypeScript 기반의 툭 고해는 말 못 한 마음을 익명으로 남기고 위로받는 모바일 우선 고해 MVP입니다.
+개발 과정에서는 하네스엔지니어링(Harness Engineering)과
+SDD(Specification-Driven Development)를 함께 수행하고 있습니다.
 
 ## 실행
 
