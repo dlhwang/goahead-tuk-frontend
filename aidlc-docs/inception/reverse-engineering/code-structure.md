@@ -36,13 +36,20 @@ flowchart TD
 - `src/pages/confession-detail/ConfessionDetailPage.tsx` - 상세 page와 재시도 상태 처리.
 - `src/features/confession/api/confessionApi.ts` - REST endpoint wrapper.
 - `src/features/confession/api/confessionQueries.ts` - query key, 조회 hook,
-  create mutation invalidation.
-- `src/features/confession/model/types.ts` - 도메인 type과 mood label.
+  create 및 reaction mutation invalidation.
+- `src/features/confession/model/types.ts` - 도메인 type, mood label,
+  reaction type 및 표시 label 상수.
 - `src/features/confession/ui/ConfessionForm.tsx` - 제어형 고해 form과 mood selector.
-- `src/features/confession/ui/ConfessionCard.tsx` - 피드 card 표현과 날짜 포맷.
-- `src/features/confession/ui/DetailPanel.tsx` - 상세 본문과 comfort message panel.
+- `src/features/confession/ui/ConfessionCard.tsx` - 피드 card 표현, 날짜 포맷,
+  반응 버튼 영역 조합.
+- `src/features/confession/ui/DetailPanel.tsx` - 상세 본문, comfort message,
+  반응 버튼 영역 조합.
+- `src/features/confession/ui/ReactionButtons.tsx` - 세 반응의 count 표시,
+  선택/해제 mutation, 처리 중 비활성화 및 실패 메시지.
 - `src/shared/api/httpClient.ts` - 공통 fetch wrapper와 API error type.
 - `src/shared/storage/deviceId.ts` - 브라우저 device id 유지.
+- `src/shared/storage/reactionSelections.ts` - confession별 성공한 반응 선택
+  기록 유지.
 - `src/shared/ui/AppLayout.tsx` - 브랜드 애플리케이션 frame.
 - `src/shared/ui/EmptyState.tsx` - 공통 빈 상태 및 오류 상태 표현.
 - `src/styles.css` - Tailwind layer와 page 배경 스타일.
@@ -69,6 +76,13 @@ flowchart TD
 - **위치**: `src/features/confession/api/confessionApi.ts`.
 - **목적**: route와 응답 type을 명시적으로 유지한다.
 - **구현**: 작은 typed wrapper가 전송 처리를 `apiRequest`에 위임한다.
+
+### 공통 반응 조작 컴포넌트
+
+- **위치**: `src/features/confession/ui/ReactionButtons.tsx`.
+- **목적**: 목록 카드와 상세 패널에서 동일한 반응 조작 동작을 공유한다.
+- **구현**: 반응 상수 배열을 순회해 항상 세 버튼을 만들고, 누락된 집계는
+  `0`으로 보정하며 mutation 상태를 UI에 반영한다.
 
 ## 핵심 의존성
 
