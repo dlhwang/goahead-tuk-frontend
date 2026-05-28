@@ -7,6 +7,8 @@ flowchart LR
     Pages["Pages"] --> QueryHooks["고해 query hooks"]
     Pages --> FeatureUI["고해 UI"]
     QueryHooks --> FeatureAPI["고해 API"]
+    FeatureUI --> QueryHooks
+    FeatureUI --> ReactionSelection["reaction selection storage"]
     FeatureAPI --> HttpClient["공통 HTTP client"]
     HttpClient --> DeviceId["device id storage"]
     Pages --> SharedUI["공통 UI"]
@@ -17,7 +19,8 @@ flowchart LR
 1. page는 feature query hook, feature UI, shared UI를 조정한다.
 2. query hook은 endpoint wrapper에 의존한다.
 3. endpoint wrapper는 공통 HTTP client에 의존한다.
-4. HTTP client는 device id storage에 의존한다.
+4. 반응 UI는 reaction mutation hook과 반응 선택 storage에 의존한다.
+5. HTTP client는 device id storage에 의존한다.
 
 ### Pages와 Feature Module
 
@@ -33,6 +36,12 @@ flowchart LR
 
 - **유형**: runtime.
 - **이유**: 각 요청이 익명 브라우저 범위 id 헤더를 전송한다.
+
+### Reaction Buttons와 Selection Storage
+
+- **유형**: runtime.
+- **이유**: 조회 응답에 현재 device의 선택 여부가 없으므로 성공한 토글
+  동작을 브라우저별 표시 상태로 유지한다.
 
 ## 외부 의존성
 

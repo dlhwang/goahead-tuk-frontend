@@ -1,15 +1,9 @@
-import { useState } from 'react';
 import { useConfessionReactionMutation } from '@/features/confession/api/confessionQueries';
 import {
+  normalizeConfessionReactions,
   reactionLabels,
-  reactionTypes,
   type ConfessionReaction,
-  type ReactionType,
 } from '@/features/confession/model/types';
-import {
-  getSelectedReactions,
-  setSelectedReaction,
-} from '@/shared/storage/reactionSelections';
 
 type ReactionButtonsProps = {
   confessionId: string;
@@ -17,46 +11,35 @@ type ReactionButtonsProps = {
 };
 
 export function ReactionButtons({ confessionId, reactions }: ReactionButtonsProps) {
-  const [selectedReactions, setSelectedReactions] = useState<ReactionType[]>(() =>
-    getSelectedReactions(confessionId),
-  );
   const mutation = useConfessionReactionMutation(confessionId);
+  const normalizedReactions = normalizeConfessionReactions(reactions);
 
-  function handleToggle(type: ReactionType) {
-    const selected = selectedReactions.includes(type);
+  function handleToggle(reaction: ConfessionReaction) {
     mutation.reset();
-    mutation.mutate(
-      { type, selected },
-      {
-        onSuccess: () => {
-          setSelectedReactions(setSelectedReaction(confessionId, type, !selected));
-        },
-      },
-    );
+    mutation.mutate({ type: reaction.type, selected: reaction.selectedByMe });
   }
 
   return (
     <div>
       <div className="flex flex-wrap gap-2" aria-label="반응 선택">
-        {reactionTypes.map((type) => {
-          const label = reactionLabels[type];
-          const selected = selectedReactions.includes(type);
-          const count = reactions?.find((reaction) => reaction.type === type)?.count ?? 0;
+        {normalizedReactions.map((reaction) => {
+          const label = reactionLabels[reaction.type];
 
           return (
             <button
-              key={type}
+              key={reaction.type}
               type="button"
               disabled={mutation.isPending}
-              aria-pressed={selected}
-              onClick={() => handleToggle(type)}
+              aria-pressed={reaction.selectedByMe}
+              data-testid={`reaction-button-${reaction.type.toLowerCase()}`}
+              onClick={() => handleToggle(reaction)}
               className={`rounded-full border px-3 py-2 text-xs font-medium transition disabled:cursor-wait disabled:opacity-60 ${
-                selected
+                reaction.selectedByMe
                   ? 'border-amber/70 bg-amber/20 text-amber'
                   : 'border-white/10 bg-white/[0.07] text-mist/72 hover:border-lavender/40'
               }`}
             >
-              <span aria-hidden="true">{label.emoji}</span> {label.label} {count}
+              <span aria-hidden="true">{label.emoji}</span> {label.label} {reaction.count}
             </button>
           );
         })}

@@ -7,6 +7,7 @@ export type ReactionType = (typeof reactionTypes)[number];
 export type ConfessionReaction = {
   type: ReactionType;
   count: number;
+  selectedByMe: boolean;
 };
 
 export const reactionLabels: Record<ReactionType, { emoji: string; label: string }> = {
@@ -14,6 +15,16 @@ export const reactionLabels: Record<ReactionType, { emoji: string; label: string
   COMFORT: { emoji: '🫂', label: '토닥여요' },
   TOGETHER: { emoji: '🤝', label: '함께해요' },
 };
+
+export function normalizeConfessionReactions(
+  reactions: readonly ConfessionReaction[] = [],
+): ConfessionReaction[] {
+  return reactionTypes.map((type) => {
+    const reaction = reactions.find((candidate) => candidate.type === type);
+
+    return reaction ?? { type, count: 0, selectedByMe: false };
+  });
+}
 
 export type Confession = {
   id: string;

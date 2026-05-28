@@ -15,8 +15,8 @@
 
 ## 인프라
 
-- 브라우저 `localStorage` - device id 유지.
-- 외부 REST API - backend 고해 데이터와 생성 작업.
+- 브라우저 `localStorage` - device id와 성공한 반응 선택 표시 상태 유지.
+- 외부 REST API - backend 고해 조회, 생성, 반응 선택 및 해제 작업.
 - 정적 asset pipeline - Vite가 production asset을 `dist/`로 생성.
 
 ## 빌드 도구
