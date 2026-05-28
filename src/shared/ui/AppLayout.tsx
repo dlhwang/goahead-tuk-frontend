@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import brandImage from '@/assets/brand-identity.png';
 
 export function AppLayout() {
   return (

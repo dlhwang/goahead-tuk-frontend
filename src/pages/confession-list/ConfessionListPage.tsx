@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import { PenLine, RefreshCw } from 'lucide-react';
 import { useConfessionsQuery } from '@/features/confession/api/confessionQueries';
 import { ConfessionCard } from '@/features/confession/ui/ConfessionCard';
@@ -43,19 +44,14 @@ export function ConfessionListPage() {
       ) : null}
 
       {confessions && confessions.length > 0 ? (
-        <section className="grid gap-3 px-5 pb-24">
+        <section className="grid gap-3 px-5 pb-28">
           {confessions.map((confession) => (
             <ConfessionCard key={confession.id} confession={confession} />
           ))}
         </section>
       ) : null}
 
-      <Link
-        to="/confessions/new"
-        className="fixed bottom-7 left-1/2 inline-flex h-14 w-[calc(100%-40px)] max-w-sm -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-mist font-semibold text-midnight shadow-2xl shadow-black/30 active:scale-[0.98]"
-      >
-        <PenLine size={18} /> 고해하기
-      </Link>
+      <FloatingCreateLink />
     </div>
   );
 }
@@ -87,5 +83,18 @@ function CreateLink() {
     <Link to="/confessions/new" className="rounded-full bg-mist px-5 py-3 text-sm font-semibold text-midnight">
       고해 쓰기
     </Link>
+  );
+}
+
+function FloatingCreateLink() {
+  return createPortal(
+    <Link
+      to="/confessions/new"
+      aria-label="고해하기"
+      className="fixed bottom-8 left-[calc(50%_+_min(14rem,50vw)_-_1.25rem)] z-20 inline-flex h-14 -translate-x-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-mist px-5 font-semibold text-midnight shadow-2xl shadow-black/30 transition-transform active:scale-[0.97]"
+    >
+      <PenLine size={18} /> 고해하기
+    </Link>,
+    document.body,
   );
 }
