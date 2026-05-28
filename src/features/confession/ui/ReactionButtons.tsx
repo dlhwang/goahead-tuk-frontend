@@ -21,7 +21,7 @@ export function ReactionButtons({ confessionId, reactions }: ReactionButtonsProp
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2" aria-label="반응 선택">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2" aria-label="반응 선택">
         {normalizedReactions.map((reaction) => {
           const label = reactionLabels[reaction.type];
 
@@ -33,13 +33,17 @@ export function ReactionButtons({ confessionId, reactions }: ReactionButtonsProp
               aria-pressed={reaction.selectedByMe}
               data-testid={`reaction-button-${reaction.type.toLowerCase()}`}
               onClick={() => handleToggle(reaction)}
-              className={`rounded-full border px-3 py-2 text-xs font-medium transition disabled:cursor-wait disabled:opacity-60 ${
+              className={`inline-flex min-w-0 items-center justify-center gap-1 whitespace-nowrap rounded-full border px-1.5 py-2 text-[11px] font-medium transition disabled:cursor-wait disabled:opacity-60 sm:px-3 sm:text-xs ${
                 reaction.selectedByMe
                   ? 'border-amber/70 bg-amber/20 text-amber'
                   : 'border-white/10 bg-white/[0.07] text-mist/72 hover:border-lavender/40'
               }`}
             >
-              <span aria-hidden="true">{label.emoji}</span> {label.label} {reaction.count}
+              <span aria-hidden="true">{label.emoji}</span>
+              {' '}
+              <span>{label.label}</span>
+              {' '}
+              <span className="tabular-nums">{reaction.count}</span>
             </button>
           );
         })}
