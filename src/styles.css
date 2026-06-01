@@ -35,3 +35,107 @@ input {
 button {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Reaction Button Icon Animation System */
+.reaction-emoji-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reaction-emoji {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: scale(1);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hover & Active micro-interactions for tactile physical feedback */
+button:hover:not(:disabled) .reaction-emoji {
+  transform: scale(1.15);
+}
+
+button:active:not(:disabled) .reaction-emoji {
+  transform: scale(0.8);
+}
+
+/* Main Emoji Pop Animation when selected (aria-pressed="true") */
+button[aria-pressed="true"]:not(:disabled) .reaction-emoji {
+  animation: reaction-emoji-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* Glowing Sparkle & Dissolve Ghost Emoji using a clean CSS pseudo-element */
+.reaction-emoji-wrapper::after {
+  content: attr(data-emoji);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transform: scale(1);
+}
+
+/* Glimmer / Grow-Shrink / Dissolve Animation when selected */
+button[aria-pressed="true"]:not(:disabled) .reaction-emoji-wrapper::after {
+  animation: reaction-emoji-dissolve 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Custom glow colors mapped to reaction type semantics */
+.reaction-type-pray {
+  --glow-color: rgba(255, 209, 102, 0.9);   /* Vibrant Gold/Amber */
+}
+
+.reaction-type-comfort {
+  --glow-color: rgba(212, 183, 231, 0.95);  /* Dreamy Lavender/Purple */
+}
+
+.reaction-type-together {
+  --glow-color: rgba(248, 245, 241, 0.85);  /* Radiant Mist/White */
+}
+
+/* Keyframe animations */
+@keyframes reaction-emoji-pop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.4) rotate(-8deg);
+  }
+  60% {
+    transform: scale(0.9) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes reaction-emoji-dissolve {
+  0% {
+    opacity: 0;
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) blur(0px) drop-shadow(0 0 0px var(--glow-color));
+  }
+  30% {
+    opacity: 0.95;
+    transform: scale(2.0) rotate(15deg);
+    filter: brightness(1.8) blur(0px) drop-shadow(0 0 10px var(--glow-color));
+  }
+  60% {
+    opacity: 0.7;
+    transform: scale(1.3) rotate(-10deg);
+    filter: brightness(1.5) blur(1px) drop-shadow(0 0 15px var(--glow-color));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(5deg);
+    filter: brightness(1) blur(4px) drop-shadow(0 0 0px var(--glow-color));
+  }
+}

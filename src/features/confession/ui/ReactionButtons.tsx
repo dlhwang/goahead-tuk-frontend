@@ -39,7 +39,13 @@ export function ReactionButtons({ confessionId, reactions }: ReactionButtonsProp
                   : 'border-white/10 bg-white/[0.07] text-mist/72 hover:border-lavender/40'
               }`}
             >
-              <span aria-hidden="true">{label.emoji}</span>
+              <span
+                className={`reaction-emoji-wrapper reaction-type-${reaction.type.toLowerCase()}`}
+                data-emoji={label.emoji}
+                aria-hidden="true"
+              >
+                <span className="reaction-emoji">{label.emoji}</span>
+              </span>
               {' '}
               <span>{label.label}</span>
               {' '}
